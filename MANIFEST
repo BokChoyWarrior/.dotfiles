@@ -1,0 +1,6 @@
+.gitconfig|symlink|
+.vimrc|symlink|
+.zshrc|symlink|
+.config/nvim/lua/editreloadconfig.lua|symlink|
+.config/nvim/init.lua|symlink|
+# .config/alacritty/alacritty.toml|symlink|
