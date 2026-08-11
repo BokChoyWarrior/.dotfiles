@@ -25,8 +25,10 @@ symlinkFile() {
 }
 
 deployManifest() {
-    for row in $(cat $SCRIPT_DIR/$1); do
+    while IFS= read -r row || [[ -n $row ]]; do
+        [[ -z "$row" ]] && continue
         if [[ "$row" =~ ^#.* ]]; then
+            echo "[SKIP] Comment: $row"
             continue
         fi
 
@@ -43,7 +45,7 @@ deployManifest() {
                 echo "[WARNING] Unknown operation $operation. Skipping..."
                 ;;
         esac
-    done
+    done < "$SCRIPT_DIR/$1"
 }
 
 if [ -z "$@" ]; then
