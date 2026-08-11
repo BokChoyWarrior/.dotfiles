@@ -1,8 +1,36 @@
+## prompt stuff
+autoload -Uz vcs_info
+zstyle ':vcs_info:git:*' formats '${PRE_DIR}%r/%S<M>${POST_DIR} %Bgit:%F{cyan}%b%f%%b'
+setopt PROMPT_SUBST
+PRE_DIR="%B%F{blue}"
+POST_DIR="%f%b"
+precmd() {
+  vcs_info
+  # dir
+  local path_part=""
+  if [[ -n $vcs_info_msg_0_ ]]; then
+      path_part="${${vcs_info_msg_0_/\/.<M>/}/<M>/}"
+  else
+      local p="${PWD/#$HOME/~}"
+      local parts=("${(@s:/:)p}")
+      local short=()
+      for part in $parts[1,-2]; do
+        short+=($part[1,5])
+      done
+      short+=($parts[-1])
+      path_part="${PRE_DIR}${(j:/:)short}${POST_DIR}"
+  fi
+  # show user&host if in ssh
+  local ssh_host_part=""
+  [[ -n $SSH_TTY ]] && ssh_host_part="%F{red}<${USER}@${HOST%%.*}>%f"
+  RPROMPT="$ssh_host_part"
+
+  PROMPT="${path_part} %F{green}❯%f "
+}
+
 export ZSH="$HOME/.oh-my-zsh"
 export XDG_CONFIG_HOME="$HOME/.config"
 export _ZO_DATA_DIR="$HOME/.config"
-
-PS1='%F{blue}%B%~%b%f %F{green}❯%f '
 
 # ZSH
 HISTSIZE=10000
@@ -55,7 +83,7 @@ alias gd='git diff'
 alias glola='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset" --all'
 alias gtree='git log --graph --decorate --pretty=oneline --abbrev-commit --all'
 alias gpf!='git push --force'
-alias gpsup='git push --set-upstream origin $(git_current_branch)'
+alias gpsup='git push --set-upstream origin $(git branch --show-current)'
 alias gpristine='git reset --hard && git clean --force -dfx'
 
 ### Plugins ###
