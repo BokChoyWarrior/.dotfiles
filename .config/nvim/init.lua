@@ -29,7 +29,8 @@ vim.pack.add({
 	{src = "https://github.com/neovim/nvim-lspconfig"},
 })
 
+require('vague').setup({ italic = false })
+vim.cmd("colorscheme vague")
 
 vim.lsp.enable({"lua_ls"})
-vim.cmd("colorscheme vague")
 
