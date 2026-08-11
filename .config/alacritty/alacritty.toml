@@ -12,11 +12,10 @@ title = "Alacritty"
 opacity = 1
 decorations_theme_variant = "Dark"
 blur = true
-# startup_mode = "Maximized"
 
 [window.dimensions]
-columns = 0
-lines = 0
+columns = 140
+lines = 32
 
 [window.class]
 instance = "Alacritty"
@@ -30,8 +29,10 @@ multiplier = 3
 draw_bold_text_with_bright_colors = false
 
 [font]
-size = 11.25
+size = 12
 
+# https://github.com/be5invis/Iosevka/releases/download/v34.8.0/PkgTTC-SGr-IosevkaTerm-34.8.0.zip
+# Iosevka — Monospace, Default - Terminal TTC
 [font.normal]
 family = "Iosevka Term Medium"
 style = "Regular"
