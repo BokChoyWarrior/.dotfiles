@@ -2,6 +2,8 @@ export ZSH="$HOME/.oh-my-zsh"
 export XDG_CONFIG_HOME="$HOME/.config"
 export _ZO_DATA_DIR="$HOME/.config"
 
+PS1='%F{blue}%B%~%b%f %F{green}❯%f '
+
 # ZSH
 HISTSIZE=10000
 SAVEHIST=10000
@@ -10,6 +12,7 @@ setopt HIST_EXPIRE_DUPS_FIRST
 setopt SHAREHISTORY
 setopt AUTO_CD
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+DISABLE_MAGIC_FUNCTIONS="true"
 
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
@@ -27,6 +30,16 @@ bindkey '^[[B' history-substring-search-down
 alias v='nvim'
 alias zshconfig='v ~/.zshrc && source ~/.zshrc'
 
+alias ls='ls --color=auto -hv'
+alias grep='grep --color=auto'
+alias diff='diff --color=auto'
+alias ip='ip -c=auto'
+alias l='ls'
+alias ll='ls -l'
+alias ld='ls -ld'
+alias la='ls -lA'
+alias mv='mv -i'
+
 # git aliases
 alias gst='git status'
 alias ga='git add'
@@ -40,17 +53,10 @@ alias gcam='git commit --all --message'
 alias gca!='git commit --verbose --all --amend'
 alias gd='git diff'
 alias glola='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset" --all'
-alias gtree='log --graph --decorate --pretty=oneline --abbrev-commit --all'
+alias gtree='git log --graph --decorate --pretty=oneline --abbrev-commit --all'
 alias gpf!='git push --force'
 alias gpsup='git push --set-upstream origin $(git_current_branch)'
 alias gpristine='git reset --hard && git clean --force -dfx'
-
-
-# ZSH config
-DISABLE_MAGIC_FUNCTIONS="true"
-# Make new shells get the history lines from all previous
-# shells instead of the default "last window closed" history.
-export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 ### Plugins ###
 
